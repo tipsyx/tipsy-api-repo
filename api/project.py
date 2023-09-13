@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
+import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///people.db'
@@ -156,4 +157,6 @@ def index():
 
 if __name__ == '__main__':
     create_database()
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 8000))
+    debug = bool(os.environ.get('DEBUG', False))
+    app.run(host='0.0.0.0', port=port)
