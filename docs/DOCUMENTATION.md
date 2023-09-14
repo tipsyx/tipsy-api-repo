@@ -136,7 +136,7 @@ Click the "Send" button to execute the GET request.
   "Update message": "Person updated successfully"
 }
 
-## Delete a Person by ID
+# Delete a Person by ID
 URL: /api/{person_id}
 Method: DELETE
 
@@ -147,7 +147,7 @@ Response:
 }
 }
 
-## Sample Data
+# Sample Data
 [
   {
     "name": "John Doe",
