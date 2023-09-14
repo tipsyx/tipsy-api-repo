@@ -117,7 +117,7 @@ Click the "Send" button to execute the GET request.
 
 # Update a Person by ID
 
--**URL: **'/api/{person_id}`
+-**URL:** `/api/{person_id}`
 - **Method:**: PUT
 
 1. Open Postman.
@@ -136,7 +136,7 @@ Click the "Send" button to execute the GET request.
   "Update message": "Person updated successfully"
 }
 
-### Delete a Person by ID
+## Delete a Person by ID
 URL: /api/{person_id}
 Method: DELETE
 
@@ -145,6 +145,75 @@ Response:
 {
   "Delete message": "Person deleted successfully"
 }
+}
+
+## Sample Data
+[
+  {
+    "name": "John Doe",
+    "age": 30,
+    "gender": "Male",
+    "email": "johndo@gmail.com",
+    "phone_number": "08038127748",
+    "job": "Software Engineer"
+  },
+  {
+    "name": "Jane Doe",
+    "age": 23,
+    "gender": "Female",
+    "email": "jdoe12@gmail.com",
+    "phone_number": "08024987654",
+    "job": "Data Analyst"
+  },
+  {
+    "name": "Jane Smith",
+    "age": 25,
+    "gender": "Female",
+    "email": "janesmith1995@yahoo.com",
+    "phone_number": "07055565555",
+    "job": "Marketing Manager"
+  },
+  {
+    "name": "Smith Johnson",
+    "age": 35,
+    "gender": "Male",
+    "email": "smithjohnson@example.com",
+    "phone_number": "111-222-3333",
+    "job": "Teacher"
+  },
+  {
+    "name": "Chinedu Okoro",
+    "age": 28,
+    "gender": "Male",
+    "email": "chinedu.okoro28@yahoo.com",
+    "phone_number": "09012342567",
+    "job": "Engineer"
+  },
+  {
+    "name": "Ama Mensah",
+    "age": 30,
+    "gender": "Female",
+    "email": "ama.mensahanalyst@gmail.com",
+    "phone_number": "08026543210",
+    "job": "Business Analyst"
+  },
+  {
+    "name": "Obinna Eze",
+    "age": 25,
+    "gender": "Male",
+    "email": "obinna.eze@example.com",
+    "phone_number": "555-555-5555",
+    "job": "Marketer"
+  },
+  {
+    "name": "Kwame Boateng",
+    "age": 32,
+    "gender": "Male",
+    "email": "kwame.boateng@example.com",
+    "phone_number": "111-222-3333",
+    "job": "Doctor"
+  }
+]
 
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
