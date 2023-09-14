@@ -41,13 +41,12 @@ def handle_integrity_error(error=None):
     db.session.rollback()
     return jsonify({'Response Error Message': 'Database integrity error. Check your input data.'}), 400
 
-# CREATE: Add a new person
 @app.route('/api', methods=['POST'])
 def add_person():
     data_list = request.get_json()
 
     if not isinstance(data_list, list):
-        return jsonify({'Response Error Message': 'Invalid JSON data. Expected a list of persons.'}), 400
+        return jsonify({'Response Error Message': "Expected a JSON list with 'name' and 'age' for each person."}), 400
 
     for data in data_list:
         name = data.get('name')
@@ -67,7 +66,8 @@ def add_person():
             db.session.rollback()
             return jsonify({'Response Error Message': 'Database integrity error. Check your input data.'}), 400
 
-    return jsonify({'Successful Response Message': 'Persons added successfully'}), 201
+    return jsonify({'Successful Response Message': 'Data added successfully'}), 201
+
 
 # GET: Retrieve a list of all persons
 @app.route('/api', methods=['GET'])
