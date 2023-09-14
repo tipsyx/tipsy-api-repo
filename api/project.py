@@ -2,8 +2,6 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 import os
-import subprocess
-import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///people.db'
@@ -18,7 +16,7 @@ class Person(db.Model):
     phone_number = db.Column(db.String(20))
     job = db.Column(db.String(100))
     
-    def __init__(self, name, age, gender, email, phone_number, job):
+    def __init__(self, name, age, gender, email, phone_number,job):
         self.name = name
         self.age = age
         self.gender = gender
@@ -34,71 +32,6 @@ def create_database():
 def handle_integrity_error(error=None):
     db.session.rollback()
     return jsonify({'Response Error Message': 'Database integrity error. Check your input data.'}), 400
-
-# CREATE: Add a new person using curl
-def create_person():
-    new_person_data = [
-        {
-            "name": "John Doe",
-            "age": 30,
-            "gender": "Male",
-            "email": "johndo@gmail.com",
-            "phone_number": "08038127748",
-            "job": "Software Engineer"
-        },
-        {
-            "name": "Jane Doe",
-            "age": 23,
-            "gender": "Female",
-            "email": "jdoe12@gmail.com",
-            "phone_number": "08024987654",
-            "job": "Data Analyst"
-        },
-        {
-            "name": "Jane Smith",
-            "age": 25,
-            "gender": "Female",
-            "email": "janesmith1995@yahoo.com",
-            "phone_number": "07055565555",
-            "job": "Marketing Manager"
-        },
-        {
-            "name": "Smith Johnson",
-            "age": 35,
-            "gender": "Male",
-            "email": "smithjohnson@example.com",
-            "phone_number": "111-222-3333",
-            "job": "Teacher"
-        }
-    ]
-   
-    curl_command = f'curl -X POST -H "Content-Type: application/json" -d \'{json.dumps(new_person_data)}\' http://localhost:8000/api'
-    result = subprocess.run(curl_command, shell=True, capture_output=True, text=True)
-    print(result.stdout)
-
-# Function to retrieve all people using curl
-def get_all_people():
-    curl_command = 'curl https://api-to-perform-crud.onrender.com/api'
-    result = subprocess.run(curl_command, shell=True, capture_output=True, text=True)
-    print(result.stdout)
-
-# Function to update a specific person using curl
-def update_person(user_id):
-    updated_person_data = {
-        "name": "Samantha Johnson",
-        "gender": "Female",
-        "phone_number": "123-456-7890",
-        "job": "Updated Job"
-    }
-    curl_command = f'curl -X PUT -H "Content-Type: application/json" -d \'{json.dumps(updated_person_data)}\' http://localhost:8000/api/{user_id}'
-    result = subprocess.run(curl_command, shell=True, capture_output=True, text=True)
-    print(result.stdout)
-
-# Function to delete a specific person using curl
-def delete_person(user_id):
-    curl_command = f'curl -X DELETE http://localhost:8000/api/{user_id}'
-    result = subprocess.run(curl_command, shell=True, capture_output=True, text=True)
-    print(result.stdout)
 
 # CREATE: Add a new person
 @app.route('/api', methods=['POST'])
@@ -167,7 +100,7 @@ def get_all_persons():
 
 # UPDATE: Modify details of an existing person by ID
 @app.route('/api/<int:user_id>', methods=['PUT'])
-def update_person_route(user_id):
+def update_person(user_id):
     person = Person.query.get(user_id)
     if person is None:
         return jsonify({'Fetch Error Message': 'Person not found'}), 404
@@ -220,11 +153,10 @@ def index():
         Welcome to the Tipsy API. 
         This API is designed to perform CRUD (Create, Read, Update, Delete) operations on a database of people records. 
         It provides a simple interface to manage information about individuals, including their names, ages, etc.
-    '''})
+        '''})
 
 if __name__ == '__main__':
     create_database()
     port = int(os.environ.get('PORT', 8000))
     debug = bool(os.environ.get('DEBUG', False))
     app.run(host='0.0.0.0', port=port)
-
